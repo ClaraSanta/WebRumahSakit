@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Dokter</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>id="dokter"</div>
+        <button id="btn2" onclick ="loadDocDokter()"> Tampil<button>
+                <script> function lodDocDokter (){
+                    var dokter;
+                    var xmlhttp = new XMLHttpRequest();
+                    var url = "http://202.94.83.109:8080/165314085RSKu/webresources/Dokter";
+                   
+                    xmlhttp.onreadystatechange  =function (){
+                        if (this.readyState == 4 && this.status==200){
+                            myFunction(this.responseText);
+                        }
+                        
+                    }
+                    xmlhttp.open("GET", url, true");
+                    xmlhttp.send();
+                    function myFunction(Response){
+                        var arr = JSON.parse(Response);
+                        var  i;
+                        var out =  "<center><table border='3'>";
+                        
+                        for (i=0; i<arr.length; i++){
+                            out +="<tr><td>" +
+                                    arr[i].id + "</td><td>"+arr[i].nama +"</td><td>"+
+                                    arr[i].spesialis;
+                            
+                            
+                        }
+                        out+= "</table></center>";
+                        document.getElementById("btn2").innerHTML=out;
+                    }
+                }
+                </script>
+                            </button>
+    </body>
+</html>

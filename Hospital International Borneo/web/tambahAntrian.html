@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Hospital International Borneo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+         <section id="tambahAntrian" class="section gray-bg">
+            <div class="container">
+                  
+                <form class="form-horizontal" action="" id="registerForm" onsubmit="return make_json(this)" method="POST">
+                    <div class="contact-form">
+                        <center><table>
+                                <tr><td>No Rekam Medis</td> <td>:</td> <td><input type="text" onchange="loadDoc()" id="noRm"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
+                            </table></center>
+
+                        <br/><br/><br/><center><h3>Data Hasil Pencarian</h3></center><br/>
+                        <center><table>
+                                <tr>
+                                    <td>NIK</td> <td>:</td> <td><input type="text" id="nik" value="" disabled=""/></td>
+                                </tr>               
+                                <tr>
+                                    <td>Nama</td> <td>:</td> <td><input type="text" id="nama" value="" disabled=""/></td>
+                                </tr>                                                                  
+                                <tr>
+                                    <td>Alamat</td> <td>:</td> <td><textarea rows="2" id="alamat" disabled=""></textarea></td>
+                                </tr>                                                                  
+                                <tr>
+                                    <td>Tanggal Rawat Jalan</td> <td>:</td> <td><input type="date" id="tanggalRawat" value=""/></td>
+                                </tr>                            
+                                <tr>
+                                    <td>Pilih Klinik</td> <td>:</td> <td>
+                                        <select class="form-control" id="namaKlinik">
+                                            <option></option>
+                                            <option label="Klinik Mata">Klinik Mata</option>
+                                            <option label="Klinik Hati">Klinik Hati</option>
+                                            <option label="Klinik Jantung">Klinik Jantung</option>
+                                            <option label="Klinik Kulit">Klinik Kulit</option>
+                                        </select>
+                                    </td>
+                                </tr>                            
+                            </table></center>                   
+                        <div class="col-xs-offset-3 col-xs-6 text-center" >
+                            <input type="submit" class="btn btn-blue-fill" value="Submit">
+                            <input type="reset" class="btn btn-blue-fill" value="Reset">
+                        </div>
+                    </div>
+                </form>
+                <script>
+                    function loadDoc() {
+                        var url = "http://202.94.83.190:8080/165314016_maps/webresources/Pasien/cariPasien?noRm=" + noRm.value;
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.open("GET", url, true);
+                        xhttp.send();
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var objj = JSON.parse(this.responseText);
+                                document.getElementById("nama").value = objj.nama;
+                                document.getElementById("nik").value = objj.nik;
+                                document.getElementById("alamat").value = objj.alamat;
+                            }
+                        };
+                    }
+                    function make_json(form) {
+                        var json = {
+                            "tanggal": form.tanggalRawat.value,
+                            "noRm": form.noRm.value,
+                            "nama": form.nama.value,
+                            "alamat": form.alamat.value,
+                            "namaKlinik": form.namaKlinik.value
+                        };
+                        var html = JSON.stringify(json, 0, 100);
+                        var url = "http://202.94.83.190:8080/165314085RSKu/webresources/Antrian/addAntrian";
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", url, false);
+                        xhr.setRequestHeader("Content-type", "application/json");
+                        xhr.send(html);
+                        document.getElementById("output").innerHTML = html;
+                        return false;
+                    }
+                </script>
+</section> 
+    </body>
+</html>

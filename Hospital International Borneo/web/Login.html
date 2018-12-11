@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" id="home">
+
+    <head>
+        
+        <title>Hospital International Borneo</title>
+       
+    </head>
+
+    <body>
+        <div class="preloader">
+            <img src="rs1">
+        </div>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            
+                        <h3 class="text-center login-title">Login</h3>
+
+                        <div class="account-wall">
+                            <img class="profile-img center-block" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                                 alt="">
+                            <br>
+                            <form class="form-signin" onsubmit="loadDoc()">
+                                <input type="text" id="emaill" class="form-control" placeholder="Username" required autofocus>
+                                <br>
+                                <input type="password" id="password" class="form-control" placeholder="Password" required>
+                                <br>
+                                <button class="btn btn-blue-fill btn-block" type="submit" onclick="loadDoc()" >
+                                    Login</button>
+                                <span class="clearfix"></span>
+                                <!--<a href="DaftarAccount.html" class="text-center new-account center-block">Daftar Account</a>-->
+                            </form>
+                        </div>                       
+                    </div>
+               
+        <script>
+            function loadDoc() {        
+                alert("Terima kasih anda sudah login...")
+                var email = emaill.value;
+                var pw = password.value;
+//        var url = 'http://202.94.83.190:8080/165314056_servicesr/webresources/User/Login?email=' + email + '&password=' + pw;
+                var url = 'http://202.94.83.190:8080/165314034_Platform_rsku_webservice/webresources/user/login?email=' + email + '&password=' + pw;
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var user = JSON.parse(this.responseText);
+                        if (user !== null) {
+                            window.open("Admin.html", "_self");
+                        } else {
+                            alert("Login Gagal!");
+                        }
+                        document.getElementById("demo").innerHTML =
+                                this.responseText;
+                    }
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+        </script>
+        
+        <footer id="contactUs">
+            
+        </footer>
+       
+</body>
+</html>

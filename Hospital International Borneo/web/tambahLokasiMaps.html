@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Hospital International Borneo </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* Style the header */
+            header {
+                background-color: #2d2d30;
+                padding: 5px;
+                text-align: center;
+                font-size: 35px;
+                color: #f5f5f5;
+            }
+            
+
+            /* Create two columns/boxes that floats next to each other */
+            
+
+            article {
+                float: left;
+                padding: 30px;
+                width: 85%;
+                background-color: white;
+                height: 700px; /* only for demonstration, should be removed */
+            }
+
+            /* Clear floats after the columns */
+            section:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            /* Style the footer */
+            footer {
+                
+                background-color: #2d2d30;
+                padding: 30px;
+                text-align: center;
+                color: #f5f5f5;
+            }
+
+            /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+            @media (max-width: 700px) {
+                nav, article {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <header>
+            <h2><marquee>HOSPITAL INTERNATIONAL BORNEO</marquee></h2>
+        </header>
+
+        <section>
+            <nav>
+                <ul>
+
+                </ul>
+            </nav>
+
+            <article>
+               
+
+                        
+                        <section id="formAddKlinik" class="section section-padded">		
+                <center><h3>Form Pendaftaran Lokasi Rumah Sakit</h3></center><br> 
+                <hr class="my-5">
+                <form class="form-horizontal" action="" id="registerForm" onsubmit="return make_json(this)" method="POST">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" for="inputNamaRs">Nama RS:</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="name" placeholder="Masukkan Nama RS">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" for="inputLatitude">Latitude:</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="lat" placeholder="Masukkan Latitude">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3" for="inputLongitude">Longitude:</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="lng" placeholder="Masukkan Longitude">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-6">
+                            <input type="submit" class="btn btn-blue-fill" value="Submit">
+                            <input type="reset" class="btn btn-blue-fill" value="Reset">
+                        </div>
+                    </div>
+                </form>
+                <br>
+            </div>	
+            <p id="output"></p>
+            <script>
+                function make_json(form) {
+                    var json = {
+                        "lat": form.lat.value,
+                        "name": form.name.value,
+                        "lng": form.lng.value
+                    };
+                    var html = JSON.stringify(json, 0, 100);
+                    var url = "http://202.94.83.190:8080/165314085_servicesr/webresources/Location/addLocation";
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", url, false);
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    xhr.send(html);
+                    document.getElementById("output").innerHTML = html;
+                    return false;
+                }
+            </script>		
+</section>
+            <footer>
+                <p>Hospital International Borneo</p>
+            </footer>
+
+    </body>
+</html>

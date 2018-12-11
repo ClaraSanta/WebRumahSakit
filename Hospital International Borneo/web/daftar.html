@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" id="home">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hospital International Borneo</title>
+       
+
+        <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+                height: 400px;
+                width: 100%
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        
+        <section id="daftarPasien" class="section gray-bg">
+            <div class="container">
+                <div class="row title text-center">
+                    <button type="button" onclick="loadDoc()">Daftar Pasien</button>
+                    <br><br><br><br>
+                    <!--<p id="demo"></p>-->                 
+                </div>            
+                <div id="id01"></div>
+
+                <script>
+                    function loadDoc() {
+                        var xmlhttp = new XMLHttpRequest();
+                        var url = "http://202.94.83.190:8080/165314085_servicesr/webresources/Pasien";
+                        xmlhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                myFunction(this.responseText);
+                            }
+                        }
+                        xmlhttp.open("GET", url, true);
+                        xmlhttp.send();
+                        function myFunction(response) {
+                            var arr = JSON.parse(response);
+                            var i;
+                            var out = "<center><table align='center' style='width: 60%;' border='1'> <tr><td>NO Rekam Medis</td><td>Nama</td><td>Alamat</td><td>Tanggal Lahir</td><td>Jenis Kelamin</td></tr></center>";
+                            for (i = 0; i < arr.length; i++) {
+                                out += "<tr><td>" +
+                                        arr[i].noRm +
+                                        "</td><td>" +
+                                        arr[i].nama +
+                                        "</td><td>" +
+                                        arr[i].alamat +
+                                        "</td><td>" +
+                                        arr[i].tanggalLahir +
+                                        "</td><td>" +
+                                        arr[i].kelamin;
+                            }
+                            out += "<center></table></center>";
+                            document.getElementById("id01").innerHTML = out;
+                        }
+                    }
+                </script>
+            </div>
+        </section>
+        <!--page contact us-->
+        <footer id="contactUs">
+        </footer>
+       
+    </body>
+</html>
